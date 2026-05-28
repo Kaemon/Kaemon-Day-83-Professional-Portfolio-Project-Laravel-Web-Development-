@@ -10,44 +10,10 @@
 <body class="bg-[#000000]">
 
     {{-- Global Nav — pure black, 44px --}}
-    <header class="fixed inset-x-0 top-0 z-50 h-11 bg-black/40 backdrop-blur-md">
-        <div class="mx-auto flex h-full max-w-[1440px] items-center justify-between px-6">
-            <a href="#" class="-m-1.5 p-1.5">
-                <img src="{{ asset('images/logo.png') }}" alt="Portfolio" class="h-8 w-auto">
-            </a>
-            <nav aria-label="Global" class="hidden items-center gap-5 lg:flex">
-                <a href="/" class="text-[12px] leading-none tracking-[-0.12px] text-white/80 hover:text-white">Home</a>
-                <a href="#about" class="text-[12px] leading-none tracking-[-0.12px] text-white/80 hover:text-white">About</a>
-                <a href="#work" class="text-[12px] leading-none tracking-[-0.12px] text-white/80 hover:text-white">Work</a>
-                <a href="#education" class="text-[12px] leading-none tracking-[-0.12px] text-white/80 hover:text-white">Education</a>
-                <a href="#hobbies" class="text-[12px] leading-none tracking-[-0.12px] text-white/80 hover:text-white">Hobbies</a>
-                <a href="#contact" class="text-[12px] leading-none tracking-[-0.12px] text-white/80 hover:text-white">Contact</a>
-            </nav>
-        </div>
-    </header>
+    <x-nav />
 
     {{-- Tile 1 — Dark hero, full-bleed photo --}}
-    <section class="relative flex min-h-screen items-center justify-center bg-[#272729] pt-11">
-        <div class="absolute inset-0 overflow-hidden">
-            <img src="{{ asset('images/hero.jpg') }}" alt=""
-                class="h-full w-full object-cover object-[center_8%] opacity-50">
-        </div>
-        <div class="relative z-10 px-6 py-20 text-center">
-            <h1 class="text-pretty text-[40px] font-semibold leading-[1.07] tracking-[-0.28px] text-white sm:text-[56px]">
-                Meeting you has been an absolute delight,<br class="hidden sm:block">
-                and it truly brightened up my day.
-            </h1>
-            <p class="mx-auto mt-6 max-w-2xl text-[21px] font-normal leading-[1.14] tracking-[0.196px] text-[#cccccc] sm:text-[28px]">
-                Let your eyes be the guide to discover the world's most beautiful details.
-            </p>
-            <div class="mt-8 flex items-center justify-center gap-4">
-                <a href="#about"
-                    class="inline-block rounded-full bg-[#ffae00] px-[22px] py-[11px] text-[17px] font-normal leading-none text-white transition-transform hover:bg-[#e69e00] active:scale-95">
-                    Who am I?
-                </a>
-            </div>
-        </div>
-    </section>
+    <x-hero />
 
     {{-- Tile 2 — Light (parchment), about --}}
     <section id="about" class="overflow-hidden bg-[#f5f5f7]" style="min-height: 700px;">
@@ -361,13 +327,7 @@
     </script>
 
     {{-- Footer — parchment --}}
-    <footer class="bg-[#080808] px-6 py-16">
-        <div class="mx-auto max-w-[1440px]">
-            <p class="text-[12px] leading-none tracking-[-0.12px] text-[#6e6e73]">
-                Copyright © 2026 Day83. All rights reserved.
-            </p>
-        </div>
-    </footer>
+    <x-footer />
 
 </body>
 </html>
