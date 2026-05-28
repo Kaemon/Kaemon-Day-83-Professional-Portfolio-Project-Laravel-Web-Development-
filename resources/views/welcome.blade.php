@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Portfolio Day83</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -20,7 +21,7 @@
                 <a href="#work" class="text-[12px] leading-none tracking-[-0.12px] text-white/80 hover:text-white">Work</a>
                 <a href="#education" class="text-[12px] leading-none tracking-[-0.12px] text-white/80 hover:text-white">Education</a>
                 <a href="#hobbies" class="text-[12px] leading-none tracking-[-0.12px] text-white/80 hover:text-white">Hobbies</a>
-                <a href="#" class="text-[12px] leading-none tracking-[-0.12px] text-white/80 hover:text-white">Contact</a>
+                <a href="#contact" class="text-[12px] leading-none tracking-[-0.12px] text-white/80 hover:text-white">Contact</a>
             </nav>
         </div>
     </header>
@@ -247,10 +248,120 @@
 
     </section>
 
+    <section id="hobbies" class="overflow-hidden bg-[#080808]" style="min-height: 700px;">
+        <div class="flex min-h-[700px] items-center justify-center py-[80px]">
 
+            {{-- Left: vertical label (same style as About Me) --}}
+            <div class="-ml-20 mr-16 shrink-0 self-stretch flex items-center">
+                <span class="select-none text-[72px] font-bold tracking-tight text-white"
+                      style="writing-mode: vertical-rl; transform: rotate(180deg); white-space: nowrap;">
+                    Hobbies
+                </span>
+            </div>
+
+            {{-- Right: masonry photo wall --}}
+            <div style="width: 900px; transform: translateX(160px);">
+                <div class="hobby-masonry">
+                    @foreach(range(1, 12) as $i)
+                    <div class="hobby-masonry-item">
+                        <img src="{{ asset('images/hobby-' . $i . '.jpg') }}" alt="Hobby {{ $i }}"
+                             onerror="this.style.display='none';this.parentElement.classList.add('hobby-masonry-placeholder')">
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    {{-- Contact section --}}
+    <section id="contact" class="bg-[#f5f5f7] px-6 py-[120px]">
+        <div class="flex flex-col items-center justify-center gap-6">
+            <h2 class="text-[56px] font-bold leading-tight text-[#1d1d1f]">Get In Touch</h2>
+            <p class="text-[17px] text-[#6e6e73]">Have a project in mind? Let's talk.</p>
+
+            <button class="contact-btn" id="contactBtn">
+                Get in touch
+                <div class="star-1"><svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" version="1.1" viewBox="0 0 784.11 815.53"><g id="Layer_x0020_1"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"></path></g></svg></div>
+                <div class="star-2"><svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" version="1.1" viewBox="0 0 784.11 815.53"><g id="Layer_x0020_1"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"></path></g></svg></div>
+                <div class="star-3"><svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" version="1.1" viewBox="0 0 784.11 815.53"><g id="Layer_x0020_1"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"></path></g></svg></div>
+                <div class="star-4"><svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" version="1.1" viewBox="0 0 784.11 815.53"><g id="Layer_x0020_1"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"></path></g></svg></div>
+                <div class="star-5"><svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" version="1.1" viewBox="0 0 784.11 815.53"><g id="Layer_x0020_1"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"></path></g></svg></div>
+                <div class="star-6"><svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" version="1.1" viewBox="0 0 784.11 815.53"><g id="Layer_x0020_1"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"></path></g></svg></div>
+            </button>
+        </div>
+
+        {{-- Contact Modal --}}
+        <div id="contactModal" class="contact-modal-overlay" style="display:none;">
+            <div class="contact-modal-box">
+                <button class="contact-modal-close" id="closeModal">&#x2715;</button>
+                <h3 class="contact-modal-title">Contact Me</h3>
+                <p class="contact-modal-sub">Fill in the form and I'll get back to you.</p>
+                <form id="contactForm" class="contact-form">
+                    <div class="contact-form-group">
+                        <label>Name</label>
+                        <input type="text" name="name" placeholder="Your name" required>
+                    </div>
+                    <div class="contact-form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" placeholder="your@email.com" required>
+                    </div>
+                    <div class="contact-form-group">
+                        <label>Message</label>
+                        <textarea name="message" rows="5" placeholder="Your message..." required></textarea>
+                    </div>
+                    <button type="submit" class="contact-form-submit">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const btn = document.getElementById('contactBtn');
+        const modal = document.getElementById('contactModal');
+        const closeBtn = document.getElementById('closeModal');
+        const form = document.getElementById('contactForm');
+
+        btn.addEventListener('click', () => modal.style.display = 'flex');
+        closeBtn.addEventListener('click', () => modal.style.display = 'none');
+        modal.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const submitBtn = form.querySelector('.contact-form-submit');
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+
+            try {
+                const res = await fetch('/contact', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                    },
+                    body: JSON.stringify({
+                        name: form.name.value,
+                        email: form.email.value,
+                        message: form.message.value,
+                    }),
+                });
+                if (res.ok) {
+                    submitBtn.textContent = 'Sent!';
+                    form.reset();
+                    setTimeout(() => { modal.style.display = 'none'; submitBtn.textContent = 'Send Message'; submitBtn.disabled = false; }, 1500);
+                } else {
+                    throw new Error();
+                }
+            } catch {
+                submitBtn.textContent = 'Failed — try again';
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
 
     {{-- Footer — parchment --}}
-    <footer class="bg-[#f5f5f7] px-6 py-16">
+    <footer class="bg-[#080808] px-6 py-16">
         <div class="mx-auto max-w-[1440px]">
             <p class="text-[12px] leading-none tracking-[-0.12px] text-[#6e6e73]">
                 Copyright © 2026 Day83. All rights reserved.
