@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(herd list *)",
+      "Bash(php --ini)"
+    ]
+  }
+}
