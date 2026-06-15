@@ -2,10 +2,10 @@ FROM php:8.4-cli
 
 RUN apt-get update && apt-get install -y \
     git curl zip unzip \
-    libpng-dev libonig-dev libxml2-dev libzip-dev libpq-dev \
+    libpng-dev libonig-dev libxml2-dev libzip-dev libpq-dev libicu-dev \
     && rm -rf /var/lib/apt/lists/*
 
-RUN docker-php-ext-install pdo pdo_mysql pdo_pgsql mbstring xml ctype fileinfo bcmath gd zip
+RUN docker-php-ext-install pdo pdo_mysql pdo_pgsql mbstring xml ctype fileinfo bcmath gd zip intl
 
 RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
     && apt-get install -y nodejs \
