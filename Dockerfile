@@ -21,4 +21,4 @@ RUN composer install --no-dev --optimize-autoloader
 RUN php artisan filament:assets
 RUN npm ci && npm run build
 
-CMD ["sh", "-c", "php artisan migrate --force && php artisan storage:link && php artisan config:cache && php artisan route:cache && php artisan view:cache && PHP_CLI_SERVER_WORKERS=4 php -S 0.0.0.0:${PORT:-8080} -t public public/index.php"]
+CMD ["sh", "-c", "php artisan migrate --force && php artisan storage:link && php artisan config:cache && php artisan route:cache && php artisan view:cache && PHP_CLI_SERVER_WORKERS=4 php -S 0.0.0.0:${PORT:-8080} -t public router.php"]
