@@ -39,7 +39,7 @@ class ManageSiteSetting extends Page implements HasSchemas
         return $schema
             ->components([
                 Form::make([
-                    FileUpload::make('logo')->image()->disk(config('filesystems.default'))->required(),
+                    FileUpload::make('logo')->image()->disk(config('filesystems.default'))->visibility('public')->required(),
                 ])
                     ->livewireSubmitHandler('save')
                     ->footer([
