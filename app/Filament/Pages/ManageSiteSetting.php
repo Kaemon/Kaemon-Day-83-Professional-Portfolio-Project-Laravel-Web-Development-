@@ -17,6 +17,7 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\HtmlString;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class ManageSiteSetting extends Page implements HasSchemas
 {
@@ -59,6 +60,13 @@ class ManageSiteSetting extends Page implements HasSchemas
                         ->disk(config('filesystems.default'))
                         ->visibility('public')
                         ->fetchFileInformation(false)
+                        ->saveUploadedFileUsing(function (TemporaryUploadedFile $file): string {
+                            $filename = $file->getFilename();
+                            $disk = config('filesystems.default');
+                            Storage::disk($disk)->put($filename, file_get_contents($file->getRealPath()), 'public');
+
+                            return $filename;
+                        })
                         ->required(! $currentLogoUrl),
                 ]))
                     ->livewireSubmitHandler('save')
