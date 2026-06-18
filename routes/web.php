@@ -37,6 +37,7 @@ Route::post('/contact', function (Request $request) {
             'mail.mailers.smtp.password' => $setting->smtp_password,
             'mail.from.address' => $setting->to_email,
         ]);
+        Mail::purge('smtp');
     }
 
     Mail::raw(
