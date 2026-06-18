@@ -22,25 +22,25 @@ Route::get('/', function () {
 });
 
 Route::post('/contact', function (Request $request) {
-    $data = $request->validate([
-        'name' => 'required|string|max:100',
-        'email' => 'required|email|max:100',
-        'message' => 'required|string|max:2000',
-    ]);
-
-    $setting = SiteSetting::first();
-    $toEmail = $setting?->to_email ?? 'kaemonng1017@gmail.com';
-
-    if ($setting?->to_email && $setting?->smtp_password) {
-        config([
-            'mail.mailers.smtp.username' => $setting->to_email,
-            'mail.mailers.smtp.password' => $setting->smtp_password,
-            'mail.from.address' => $setting->to_email,
-        ]);
-        Mail::purge('smtp');
-    }
-
     try {
+        $data = $request->validate([
+            'name' => 'required|string|max:100',
+            'email' => 'required|email|max:100',
+            'message' => 'required|string|max:2000',
+        ]);
+
+        $setting = SiteSetting::first();
+        $toEmail = $setting?->to_email ?? 'kaemonng1017@gmail.com';
+
+        if ($setting?->to_email && $setting?->smtp_password) {
+            config([
+                'mail.mailers.smtp.username' => $setting->to_email,
+                'mail.mailers.smtp.password' => $setting->smtp_password,
+                'mail.from.address' => $setting->to_email,
+            ]);
+            Mail::purge('smtp');
+        }
+
         Mail::raw(
             "Name: {$data['name']}\nEmail: {$data['email']}\n\n{$data['message']}",
             function ($mail) use ($data, $toEmail) {
@@ -49,11 +49,11 @@ Route::post('/contact', function (Request $request) {
                     ->replyTo($data['email'], $data['name']);
             }
         );
-    } catch (\Exception $e) {
-        logger()->error('Contact mail failed: ' . $e->getMessage());
+
+        return response()->json(['success' => true]);
+    } catch (Exception $e) {
+        logger()->error('Contact failed: '.get_class($e).': '.$e->getMessage());
 
         return response()->json(['success' => false, 'error' => $e->getMessage()], 500);
     }
-
-    return response()->json(['success' => true]);
 });
