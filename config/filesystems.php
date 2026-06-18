@@ -64,7 +64,7 @@ return [
             'driver' => 's3',
             'key' => env('SUPABASE_KEY'),
             'secret' => env('SUPABASE_SECRET'),
-            'region' => 'ap-southeast-1',
+            'region' => 'ap-south-1',
             'bucket' => env('SUPABASE_BUCKET'),
             'endpoint' => env('SUPABASE_ENDPOINT'),
             'url' => env('SUPABASE_URL'),
