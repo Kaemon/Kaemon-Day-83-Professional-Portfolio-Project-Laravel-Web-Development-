@@ -53,7 +53,7 @@ class ManageSiteSetting extends Page implements HasSchemas
                 Form::make(array_filter([
                     $currentLogoUrl ? Placeholder::make('current_logo')
                         ->label('Current Logo')
-                        ->content(new HtmlString('<img src="'.e($currentLogoUrl).'" style="max-height:80px;max-width:300px;width:auto;" />')) : null,
+                        ->content(new HtmlString('<div style="width:fit-content;"><img src="'.e($currentLogoUrl).'" style="height:80px;width:auto;display:block;object-fit:contain;" /></div>')) : null,
                     FileUpload::make('logo')
                         ->label($currentLogoUrl ? 'Upload New Logo' : 'Logo')
                         ->image()
