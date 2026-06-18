@@ -40,14 +40,20 @@ Route::post('/contact', function (Request $request) {
         Mail::purge('smtp');
     }
 
-    Mail::raw(
-        "Name: {$data['name']}\nEmail: {$data['email']}\n\n{$data['message']}",
-        function ($mail) use ($data, $toEmail) {
-            $mail->to($toEmail)
-                ->subject("Portfolio Contact from {$data['name']}")
-                ->replyTo($data['email'], $data['name']);
-        }
-    );
+    try {
+        Mail::raw(
+            "Name: {$data['name']}\nEmail: {$data['email']}\n\n{$data['message']}",
+            function ($mail) use ($data, $toEmail) {
+                $mail->to($toEmail)
+                    ->subject("Portfolio Contact from {$data['name']}")
+                    ->replyTo($data['email'], $data['name']);
+            }
+        );
+    } catch (\Exception $e) {
+        logger()->error('Contact mail failed: ' . $e->getMessage());
+
+        return response()->json(['success' => false, 'error' => $e->getMessage()], 500);
+    }
 
     return response()->json(['success' => true]);
 });
