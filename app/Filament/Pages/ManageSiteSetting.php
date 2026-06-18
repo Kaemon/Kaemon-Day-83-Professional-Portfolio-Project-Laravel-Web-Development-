@@ -58,6 +58,7 @@ class ManageSiteSetting extends Page implements HasSchemas
                         ->image()
                         ->disk(config('filesystems.default'))
                         ->visibility('public')
+                        ->fetchFileInformation(false)
                         ->required(! $currentLogoUrl),
                 ]))
                     ->livewireSubmitHandler('save')
