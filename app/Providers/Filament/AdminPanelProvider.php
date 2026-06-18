@@ -29,7 +29,7 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->brandLogo(asset('images/logo.png'))
             ->brandLogoHeight('80px')
-            ->brandUrl(url('/'))
+            ->homeUrl(url('/'))
             ->login()
             ->registration()
             ->colors([
