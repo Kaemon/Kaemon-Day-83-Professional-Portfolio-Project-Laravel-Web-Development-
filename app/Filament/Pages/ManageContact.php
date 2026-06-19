@@ -44,13 +44,6 @@ class ManageContact extends Page implements HasSchemas
                         ->email()
                         ->required()
                         ->placeholder('you@gmail.com'),
-                    TextInput::make('smtp_password')
-                        ->label('Gmail App Password')
-                        ->password()
-                        ->revealable()
-                        ->required()
-                        ->helperText('myaccount.google.com → Security → App passwords')
-                        ->dehydrated(fn ($state): bool => filled($state)),
                 ])
                     ->livewireSubmitHandler('save')
                     ->footer([
