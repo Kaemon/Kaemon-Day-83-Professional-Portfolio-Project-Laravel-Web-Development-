@@ -7,7 +7,7 @@ use App\Models\HobbyPhoto;
 use App\Models\SiteSetting;
 use App\Models\WorkExperience;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -32,23 +32,15 @@ Route::post('/contact', function (Request $request) {
         $setting = SiteSetting::first();
         $toEmail = $setting?->to_email ?? 'kaemonng1017@gmail.com';
 
-        if ($setting?->to_email && $setting?->smtp_password) {
-            config([
-                'mail.mailers.smtp.username' => $setting->to_email,
-                'mail.mailers.smtp.password' => $setting->smtp_password,
-                'mail.from.address' => $setting->to_email,
-            ]);
-            Mail::purge('smtp');
-        }
-
-        Mail::raw(
-            "Name: {$data['name']}\nEmail: {$data['email']}\n\n{$data['message']}",
-            function ($mail) use ($data, $toEmail) {
-                $mail->to($toEmail)
-                    ->subject("Portfolio Contact from {$data['name']}")
-                    ->replyTo($data['email'], $data['name']);
-            }
-        );
+        Http::withToken(config('services.resend.key'))
+            ->post('https://api.resend.com/emails', [
+                'from' => 'Portfolio Contact <onboarding@resend.dev>',
+                'to' => [$toEmail],
+                'subject' => "Portfolio Contact from {$data['name']}",
+                'text' => "Name: {$data['name']}\nEmail: {$data['email']}\n\n{$data['message']}",
+                'reply_to' => $data['email'],
+            ])
+            ->throw();
 
         return response()->json(['success' => true]);
     } catch (Exception $e) {
