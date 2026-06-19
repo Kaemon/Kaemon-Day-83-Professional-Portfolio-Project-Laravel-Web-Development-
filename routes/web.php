@@ -52,7 +52,9 @@ Route::post('/contact', function (Request $request) {
 
         return response()->json(['success' => true]);
     } catch (Exception $e) {
-        logger()->error('Contact failed: '.get_class($e).': '.$e->getMessage());
+        $msg = get_class($e).': '.$e->getMessage();
+        error_log('[contact] '.$msg);
+        logger()->error('Contact failed: '.$msg);
 
         return response()->json(['success' => false, 'error' => $e->getMessage()], 500);
     }

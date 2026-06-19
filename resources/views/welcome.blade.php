@@ -59,16 +59,20 @@
                         message: form.message.value,
                     }),
                 });
-                if (res.ok) {
+                const json = await res.json().catch(() => ({}));
+                if (res.ok && json.success) {
                     submitBtn.textContent = 'Sent!';
                     form.reset();
                     setTimeout(() => { modal.style.display = 'none'; submitBtn.textContent = 'Send Message'; submitBtn.disabled = false; }, 1500);
                 } else {
-                    throw new Error();
+                    submitBtn.textContent = 'Failed — try again';
+                    submitBtn.disabled = false;
+                    console.error('Contact error:', json.error || res.status);
                 }
-            } catch {
+            } catch (err) {
                 submitBtn.textContent = 'Failed — try again';
                 submitBtn.disabled = false;
+                console.error('Contact fetch error:', err);
             }
         });
     </script>
