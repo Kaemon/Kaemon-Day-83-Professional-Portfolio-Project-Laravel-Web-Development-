@@ -21,13 +21,3 @@ Personal portfolio website built with Laravel 13 and deployed on Render.
 - Sections: Hero, About Me, Work Experience, Education, Hobbies
 - Contact form with email delivery via Resend
 
-## Local Development
-
-```bash
-composer install
-npm install
-cp .env.example .env
-php artisan key:generate
-php artisan migrate
-npm run dev
-```
