@@ -31,7 +31,6 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogoHeight('80px')
             ->homeUrl(url('/'))
             ->login()
-            ->registration()
             ->colors([
                 'primary' => Color::Amber,
             ])
